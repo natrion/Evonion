@@ -285,7 +285,7 @@ Transform:
   m_GameObject: {fileID: 637793325}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10.6, z: -42.1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -561,8 +561,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Seed: {x: 21456, y: 5671}
-  widthSegments: 125
-  lengthSegments: 125
+  widthSegments: 100
+  lengthSegments: 100
   detail: 1
   material: {fileID: 2100000, guid: e4e216f1d92dbe149bddb876979fa49e, type: 2}
   perlinNoiseLayers: 14
@@ -650,11 +650,12 @@ Transform:
   m_GameObject: {fileID: 1226233338}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 23.83, y: 0, z: 85.88}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4780890739935851162}
+  - {fileID: 2043810272}
   m_Father: {fileID: 637793326}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1226233340
@@ -724,6 +725,7 @@ MonoBehaviour:
     BodyPartHealt: 2
     BodyPartDamage: 0.1
     price: 10
+    BodyPartMoveSpeed: 0
     BodyPartReal: {fileID: 8824241437826027435, guid: 82692ffdc8ca01e46916ae0d50438005, type: 3}
   - name: Mouth
     foodGenerated: 0
@@ -731,6 +733,7 @@ MonoBehaviour:
     BodyPartHealt: 2
     BodyPartDamage: 0.1
     price: 10
+    BodyPartMoveSpeed: 0
     BodyPartReal: {fileID: 8824241437826027435, guid: 82692ffdc8ca01e46916ae0d50438005, type: 3}
   - name: Mouth
     foodGenerated: 0
@@ -738,6 +741,7 @@ MonoBehaviour:
     BodyPartHealt: 2
     BodyPartDamage: 0.1
     price: 10
+    BodyPartMoveSpeed: 0
     BodyPartReal: {fileID: 8824241437826027435, guid: 82692ffdc8ca01e46916ae0d50438005, type: 3}
   - name: Universal
     foodGenerated: 0.5
@@ -745,20 +749,23 @@ MonoBehaviour:
     BodyPartHealt: 5
     BodyPartDamage: 0
     price: 7
+    BodyPartMoveSpeed: 0
     BodyPartReal: {fileID: 3211979952759241015, guid: 97c46fe1281a6434fa2c06d321a97b23, type: 3}
   - name: Leaf
     foodGenerated: 0.5
-    foodlost: 0.22
+    foodlost: 0.2
     BodyPartHealt: 2
     BodyPartDamage: 0
     price: 4
+    BodyPartMoveSpeed: 0
     BodyPartReal: {fileID: 1253365200111527898, guid: 8109e9e16ba4cc04b8e0928aea897927, type: 3}
   - name: Leaf2
     foodGenerated: 0.5
-    foodlost: 0.22
+    foodlost: 0.2
     BodyPartHealt: 2
     BodyPartDamage: 0
     price: 4
+    BodyPartMoveSpeed: 0
     BodyPartReal: {fileID: 7992715529498131577, guid: 0cc0db2b14252644da9f1f74ed0c8f90, type: 3}
   - name: Leaf3
     foodGenerated: 0.5
@@ -766,6 +773,7 @@ MonoBehaviour:
     BodyPartHealt: 2
     BodyPartDamage: 0
     price: 4
+    BodyPartMoveSpeed: 0
     BodyPartReal: {fileID: 2121115777601418451, guid: e334e6614ad50f749b0a37528784c614, type: 3}
   - name: Leaf4
     foodGenerated: 0.5
@@ -773,6 +781,7 @@ MonoBehaviour:
     BodyPartHealt: 2
     BodyPartDamage: 0
     price: 4
+    BodyPartMoveSpeed: 0
     BodyPartReal: {fileID: 4119340359363394084, guid: 431e05c5e2b18ba4fa6b3b0a6f687786, type: 3}
   - name: Defence
     foodGenerated: 0
@@ -780,6 +789,7 @@ MonoBehaviour:
     BodyPartHealt: 10
     BodyPartDamage: 0
     price: 1
+    BodyPartMoveSpeed: 0
     BodyPartReal: {fileID: 3211979952759241015, guid: 97c46fe1281a6434fa2c06d321a97b23, type: 3}
   - name: Defence
     foodGenerated: 0
@@ -787,6 +797,7 @@ MonoBehaviour:
     BodyPartHealt: 10
     BodyPartDamage: 0
     price: 1
+    BodyPartMoveSpeed: 0
     BodyPartReal: {fileID: 3211979952759241015, guid: 97c46fe1281a6434fa2c06d321a97b23, type: 3}
   - name: Defence
     foodGenerated: 0
@@ -794,13 +805,38 @@ MonoBehaviour:
     BodyPartHealt: 10
     BodyPartDamage: 0
     price: 1
+    BodyPartMoveSpeed: 0
     BodyPartReal: {fileID: 3211979952759241015, guid: 97c46fe1281a6434fa2c06d321a97b23, type: 3}
+  - name: Leags
+    foodGenerated: 0
+    foodlost: 0.2
+    BodyPartHealt: 2
+    BodyPartDamage: 0
+    price: 5
+    BodyPartMoveSpeed: 2
+    BodyPartReal: {fileID: 3211979952759241015, guid: f4405448db5eb054da2aa301832d06a1, type: 3}
+  - name: Leags
+    foodGenerated: 0
+    foodlost: 0.2
+    BodyPartHealt: 2
+    BodyPartDamage: 0
+    price: 5
+    BodyPartMoveSpeed: 2
+    BodyPartReal: {fileID: 3211979952759241015, guid: f4405448db5eb054da2aa301832d06a1, type: 3}
+  - name: Leags
+    foodGenerated: 0
+    foodlost: 0.2
+    BodyPartHealt: 2
+    BodyPartDamage: 0
+    price: 5
+    BodyPartMoveSpeed: 2
+    BodyPartReal: {fileID: 3211979952759241015, guid: f4405448db5eb054da2aa301832d06a1, type: 3}
   mutationChance: 50
   worldGeneration: {fileID: 991835174}
   FloraCompetitionDitance: 4
   Growdistance: 2
   foodMultyPlayer: 2.5
-  bodySize: 3
+  bodySize: 1.5
   organismCost: 7
   food: 0
   foodgeneration: 0.5
@@ -815,11 +851,13 @@ MonoBehaviour:
     BodyPartHealt: 5
     BodyPartDamage: 0
     price: 7
+    BodyPartMoveSpeed: 0
     BodyPartReal: {fileID: 3211979952759241015, guid: 97c46fe1281a6434fa2c06d321a97b23, type: 3}
   foodActualyGenerated: 0.5
   MaxHealth: 5
   health: 5
   damage: 0
+  moveSpeed: 0
 --- !u!1 &1231036416
 GameObject:
   m_ObjectHideFlags: 0
@@ -1044,6 +1082,7 @@ MonoBehaviour:
   MaxHealth: 0
   health: 0
   damage: 0
+  moveSpeed: 0
 --- !u!1 &1589551910
 GameObject:
   m_ObjectHideFlags: 0
@@ -1092,7 +1131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78bce4fc95e3f3348b31b4336b2e803c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simulationTime: 35
+  simulationTime: 4
 --- !u!1001 &1673313131
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1162,6 +1201,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7097ba7ba649e1f41bba232312bdcbd8, type: 3}
+--- !u!1 &2043810271
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2043810272}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2043810272
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043810271}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1226233339}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4780890739935851161
 PrefabInstance:
   m_ObjectHideFlags: 0

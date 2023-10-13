@@ -14,6 +14,7 @@ public class organism : MonoBehaviour
         public float BodyPartHealt;
         public float BodyPartDamage;
         public float price;
+        public float BodyPartMoveSpeed;
         //public List<Vector3> BodyPartEdges;
         public GameObject BodyPartReal;
     }
@@ -40,6 +41,9 @@ public class organism : MonoBehaviour
     [SerializeField] public float MaxHealth;
     [SerializeField] private float health;
     [SerializeField] private float damage;
+    [SerializeField] private float moveSpeed;
+    private Vector3 HuntedThing;
+    private bool Fighting;
     private void Awake()
     {
         StartCoroutine(Tick());
@@ -55,12 +59,32 @@ public class organism : MonoBehaviour
             CreateFood();
             Duplicate();
             Die();
-            yield return new WaitForSeconds(1);
-
-            foodActualyGenerated = foodgeneration;
-
+            PlanHunt();
             yield return new WaitForSeconds(0.5f);
+
+            foodActualyGenerated = foodgeneration;   
+            Hunt();
+            
+            yield return new WaitForSeconds(0.5f);
+            Fighting = false;
         }
+    }
+    void PlanHunt()
+    {
+        if (UnityEngine.Random.Range(0, 10) < 2)
+        {
+            HuntedThing =  new Vector3(UnityEngine.Random.Range(-1f, 1f), 0, UnityEngine.Random.Range(-1f, 1f)) ; //  transform.parent.GetChild(UnityEngine.Random.Range(0, transform.parent.childCount)).gameObject;      
+        }
+    }
+    void Hunt()
+    {
+        if (Fighting == false & HuntedThing != Vector3.zero)
+        {
+
+            float AddXZ = HuntedThing.x + HuntedThing.z;
+            transform.position = worldGeneration.CalculateHight(transform.position.x + HuntedThing.x / AddXZ * moveSpeed, lenght, transform.position.z + HuntedThing.z / AddXZ * moveSpeed);
+        }
+
     }
     void CreateFood()
     {
@@ -86,6 +110,7 @@ public class organism : MonoBehaviour
             Organism.organismCost += bodyPart.price;
             Organism.MaxHealth += bodyPart.BodyPartHealt;
             Organism.damage += bodyPart.BodyPartDamage;
+            Organism.moveSpeed += bodyPart.BodyPartMoveSpeed;
             GameObject bodyPartObject = Instantiate(bodyPart.BodyPartReal);
             Organism.lastBodyPartIformation.Add(bodyPart);
 
@@ -99,9 +124,10 @@ public class organism : MonoBehaviour
             int num = UnityEngine.Random.Range(0, Organism.lastBodyPart.Count);
             Organism.foodgeneration -= Organism.lastBodyPartIformation[num].foodGenerated;
             Organism.foodlost -= Organism.lastBodyPartIformation[num].foodlost;
-            Organism.MaxHealth += Organism.lastBodyPartIformation[num].BodyPartHealt;
+            Organism.MaxHealth -= Organism.lastBodyPartIformation[num].BodyPartHealt;
             Organism.organismCost -= Organism.lastBodyPartIformation[num].price;
             Organism.damage -= Organism.lastBodyPartIformation[num].BodyPartDamage;
+            Organism.moveSpeed -= Organism.lastBodyPartIformation[num].BodyPartMoveSpeed;
             Organism.lastBodyPartIformation.RemoveAt(num);
             Destroy(Organism.lastBodyPart[num]);
             Organism.lastBodyPart.RemoveAt(num);
@@ -109,7 +135,7 @@ public class organism : MonoBehaviour
     }
     void Die()
     {
-        if (0 > food | Vector2.Distance(new Vector2(transform.position.x, transform.position.z), Vector2.zero) > worldGeneration.widthSegments * 0.8f * worldGeneration.detail | health < 0)
+        if (0 > food | Vector2.Distance(new Vector2(transform.position.x, transform.position.z), Vector2.zero) > worldGeneration.widthSegments * 0.35f * worldGeneration.detail | health < 0)
         { 
             Destroy(gameObject); 
         }
@@ -117,11 +143,18 @@ public class organism : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        //fotosintesis competision
+
         if (other.isTrigger == false) return;
-        if (other.gameObject.GetComponent<organism>().foodgeneration >= foodgeneration & other.gameObject.transform.parent != transform) foodActualyGenerated = 0;
-        //fight
-        other.gameObject.GetComponent<organism>().health -= damage;
-        food += damage * 2;
+        if(Vector3.Distance(other.transform.position,transform.position)<Growdistance)
+        {
+            //fotosintesis competision
+            if (other.gameObject.transform.parent != transform) foodActualyGenerated = foodgeneration / (other.gameObject.GetComponent<organism>().foodgeneration * 5f);
+            //fight
+            other.gameObject.GetComponent<organism>().health -= damage;
+            food += damage * 2;
+            Fighting = true;
+        }
+
     }
+    
 }
